@@ -16,8 +16,12 @@ COPY --chown=1001:0 tsconfig.node.json ./
 
 USER 1001
 
+# Configure npm to use cache if available
+RUN npm config set cache /opt/app-root/src/.npm --global
+
 RUN npm ci && npm run build
 
+ENV PORT=8080
 EXPOSE 8080
 
 CMD ["node", "dist/server/index.js"]

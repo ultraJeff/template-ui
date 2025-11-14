@@ -19,6 +19,13 @@ spec:
     type: Docker
     dockerStrategy:
       dockerfilePath: Containerfile
+      volumes:
+        - name: npm-cache
+          mounts:
+            - destinationPath: /opt/app-root/src/.npm
+          source:
+            type: PersistentVolumeClaim
+            claimName: template-ui-build-cache
   resources:
     requests:
       memory: "4Gi"
