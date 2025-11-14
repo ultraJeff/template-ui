@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import { handleHistoryGet, handleStreamPost } from "../controllers/v1/agent.js";
+import { handleHistoryGet, handleStreamPost, handleThreadsGet } from "../controllers/v1/agent.js";
 
 interface StreamRequest {
   message: string;
@@ -14,11 +14,15 @@ async function apiRoutes(fastify: FastifyInstance) {
   });
 
   fastify.post("/v1/stream", async (request: FastifyRequest<{ Body: StreamRequest }>, reply: FastifyReply) => {
-   handleStreamPost(fastify, request, reply);
+   return handleStreamPost(fastify, request, reply);
   });
 
   fastify.get("/v1/history/:threadId", async (request: FastifyRequest<{ Params: { threadId: string } }>, reply: FastifyReply) => {
-    handleHistoryGet(fastify, request, reply);
+    return handleHistoryGet(fastify, request, reply);
+  });
+
+  fastify.get("/v1/threads/:userId", async (request: FastifyRequest<{ Params: { userId: string } }>, reply: FastifyReply) => {
+    return handleThreadsGet(fastify, request, reply);
   });
 }
 

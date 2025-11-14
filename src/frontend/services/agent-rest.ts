@@ -7,7 +7,7 @@ export interface Thread {
 
 // Note: APP_DATA type is declared in types/user.ts
 
-const apiUrl = window.APP_DATA.apiUrl;
+const apiUrl = '/api'; // Use relative path for both dev and prod
 
 function combineToolCallandResult(messages: Message[]) {
     const newMessages: Message[] = [];
